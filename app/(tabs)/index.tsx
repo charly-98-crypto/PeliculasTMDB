@@ -11,13 +11,14 @@ export default function HomeScreen() {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  const getMovies = async (endpoint) => {
-    const res = await fetch(`${BASE_URL}${endpoint}?api_key=${API_KEY}&language=es-ES`);
-    const data = await res.json();
-    return data.results;
-  };
+ const getMovies = async (endpoint: any) => {
+  const res = await fetch(`${BASE_URL}${endpoint}?api_key=${API_KEY}&language=es-ES`);
+  const data = await res.json();
+  return data.results;
+};
 
-  const searchMovies = async (query) => {
+
+  const searchMovies = async (query: any) => {
     if (!query) {
       setSearchResults([]);
       return;
@@ -43,20 +44,20 @@ export default function HomeScreen() {
     return () => clearTimeout(delayDebounce);
   }, [searchText]);
 
-  const renderRow = (title, movies) => (
-    <View style={{ marginVertical: 15 }}>
-      <Text style={styles.title}>{title}</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {movies.map((movie) => (
-          <Image
-            key={movie.id}
-            source={{ uri: "https://image.tmdb.org/t/p/w500" + movie.poster_path }}
-            style={styles.poster}
-          />
-        ))}
-      </ScrollView>
-    </View>
-  );
+const renderRow = (title: any, movies: any[]) => (
+  <View style={{ marginVertical: 15 }}>
+    <Text style={styles.title}>{title}</Text>
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      {movies.map((movie: any) => (
+        <Image
+          key={movie.id}
+          source={{ uri: "https://image.tmdb.org/t/p/w500" + movie.poster_path }}
+          style={styles.poster}
+        />
+      ))}
+    </ScrollView>
+  </View>
+);
 
   return (
     <ScrollView style={styles.container}>
@@ -77,7 +78,7 @@ export default function HomeScreen() {
           <Text style={styles.title}>Resultados para "{searchText}"</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {searchResults.length > 0 ? (
-              searchResults.map((movie) => (
+              searchResults.map((movie: any) => (
                 <Image
                   key={movie.id}
                   source={{ uri: "https://image.tmdb.org/t/p/w500" + movie.poster_path }}
